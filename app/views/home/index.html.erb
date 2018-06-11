@@ -4,23 +4,19 @@
     <%# First row of the calendar, shows the date of the current week %>
     <thead class="thead-light">
       <tr>
-        <% 7.times do |i| %>
-          <th class="text-center">
-            <div @click="getSelectedDate">
-              <week-dates date="<%= @week_start_date + i %>"></week-dates>
-            </div>
-          </th>
-        <% end %>
+        <th @click="openCreateForm(date)" class="text-center" v-for="date in week_array">
+          {{date}}
+        </th>
       </tr>
     </thead>
     
     <%# Second row of the calendar, shows the events %>
       <tbody>
         <tr id="current-week-events">
-          <td v-on:click="" v-for="date in week_array">
+          <td @click="openCreateForm(date)" v-for="date in week_array">
             <span v-if="current_week_events[date]">
               <ul v-for="event in current_week_events[date]">
-                <li @click="getCurrentEventParams(event)">{{ event.id }}</li>
+                <li @click.stop="getCurrentEventParams(event)">{{ event.id }}</li>
               </ul>
             </span>
           </td>
@@ -28,8 +24,8 @@
       </tbody>
   </table>
 
-  <create-modal :current_week_events="current_week_events" :errors="errors" :date="selectedDate" v-if="showCreateModal" @close="showCreateModal = false"></create-modal>
-  <edit-delete-modal :current_week_events="current_week_events" :errors="errors" :event-id="eventId" :event="event" :date="currentEventDate" :start-time="currentEventStartTime" :end-time="currentEventEndTime" v-if="showEditDeleteModal" @close="showEditDeleteModal = false"></edit-delete-modal>
+  <create-form :current_week_events="current_week_events" :errors="errors" :date="selectedDate" v-if="showCreateModal" @close="showCreateModal = false"></create-form>
+  <edit-delete-form :current_week_events="current_week_events" :errors="errors" :event-id="eventId" :event="event" :date="currentEventDate" :start-time="currentEventStartTime" :end-time="currentEventEndTime" v-if="showEditDeleteModal" @close="showEditDeleteModal = false"></edit-delete-form>
 
   <%# template for the create event %>
   <%= render 'partials/create_event_form' %>

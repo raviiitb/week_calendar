@@ -25,16 +25,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       })
     },
-    components: {
-      'week-dates': {
-        props: ['date'],
-        methods: {
-        },
-        template:`
-          <div>{{date}}</div>
-        `
+    methods: {
+      openCreateForm: function(date) {
+        this.showCreateModal = true
+        this.selectedDate = date
       },
-      'create-modal': {
+      getCurrentEventParams: function(task) {
+        this.eventId = task.id
+        this.event = task
+        this.showEditDeleteModal = true
+        this.currentEventDate = task.date
+        var localStart = new Date(task.start_time)
+        this.currentEventStartTime = localStart.toTimeString().substr(0,5)
+        var localEnd = new Date(task.end_time)
+        this.currentEventEndTime = localEnd.toTimeString().substr(0,5)
+      }
+    },
+    components: {
+      'create-form': {
         props: {
           current_week_events: Object,
           errors: Object,
@@ -70,14 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       },
-      'edit-delete-modal': {
+      'edit-delete-form': {
         props: {
+          current_week_events: Object,
+          errors: Object,
           startTime: String,
           endTime: String,
           date: String,
           eventId: Number,
-          current_week_events: Object,
-          errors: Object,
           event: Object
         },
         template: '#edit-delete-template',
@@ -119,22 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
             })
           }
         }
-      }
-    },
-    methods: {
-      getSelectedDate: function(event) {
-        this.showCreateModal = true
-        this.selectedDate = event.target.innerHTML
-      },
-      getCurrentEventParams: function(task) {
-        this.eventId = task.id
-        this.event = task
-        this.showEditDeleteModal = true
-        this.currentEventDate = task.date
-        var localStart = new Date(task.start_time)
-        this.currentEventStartTime = localStart.toTimeString().substr(0,5)
-        var localEnd = new Date(task.end_time)
-        this.currentEventEndTime = localEnd.toTimeString().substr(0,5)
       }
     }
   });
