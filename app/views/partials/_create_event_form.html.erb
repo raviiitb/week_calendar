@@ -1,0 +1,32 @@
+<script type="text/x-template" id="create-template">
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <button class="close" @click="$emit('close')">&times;</button>
+          <form @submit.prevent="saveEvent">
+            <div class="modal-header">
+                <h3>Create Event</h3>
+            </div>
+            <div class="modal-body">
+              <slot name="body">
+                <label for="date">Date: </label>
+                <input id="selected-date" type="date" :value="selectedDate" v-model="date" required>
+                <label for="start-time">Start at: </label>
+                <input class="bfh-timepicker" id="start-time" type="time" v-model="startTime" required>
+                <label for="end-time">End at: </label>
+                <input id="end-time" type="time" v-model="endTime" required>
+              </slot>
+            </div>
+
+            <div class="modal-footer">
+              <slot name="footer">
+                <button type="button" class="btn btn-success" type="submit">Success</button>
+              </slot>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </transition>
+</script>
