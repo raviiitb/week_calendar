@@ -43,7 +43,6 @@ gem 'jquery-rails'
 gem 'bootstrap'
 
 group :development, :test do
-  gem 'pry'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
