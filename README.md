@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## App purpose
+This small application is used to schedule events on a weekly calendar. You can Add/Edit/Delete and event
 
-Things you may want to cover:
+## Web Interface
+There is weekly calendar on the home page where all the events IDs are displayed. Clicking on any column will open a modal to create a new event. Clicking on any evet will open a modal to Edit/Delete the event
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Tech stack
+Ruby on Rails: Back-end
+VueJS: Front-end
+Bootstrap: Styling

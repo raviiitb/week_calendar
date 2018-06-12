@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.week_array @week_array
 
 json.set! :events do

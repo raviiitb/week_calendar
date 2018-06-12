@@ -1,14 +1,17 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
     @event = Event.new build_params(create_params)
+
     render json: { errors: @event.errors.messages }, status: 422 unless @event.save
   end
 
   def update
     @event = Event.find params[:id]
-    render json: { errors: @event.errors.messages }, status: 422 unless @event.update(build_params create_params)
+    render json: { errors: @event.errors.messages }, status: 422 unless @event.update build_params(update_params)
   end
 
   def destroy
@@ -23,6 +26,9 @@ class EventsController < ApplicationController
   private
 
   def create_params
+    params.require :date
+    params.require :start_time
+    params.require :end_time
     params.permit %w[date start_time end_time]
   end
 
@@ -33,12 +39,12 @@ class EventsController < ApplicationController
   def build_params(params)
     start_time = merge_date_time params[:date], params[:start_time]
     end_time = merge_date_time params[:date], params[:end_time]
-    params.merge!({start_time: start_time, end_time: end_time })
+    params.merge!(start_time: start_time, end_time: end_time)
   end
 
   def merge_date_time(date, time)
     year, month, date = date.split('-').map(&:to_i)
-    hour, minute  = time.split(':').map(&:to_i)
+    hour, minute = time.split(':').map(&:to_i)
     DateTime.new year, month, date, hour, minute, 0, Time.now.formatted_offset
   end
 end

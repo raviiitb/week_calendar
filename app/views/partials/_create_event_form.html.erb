@@ -9,20 +9,16 @@
                 <h3>Create Event</h3>
             </div>
             <div class="modal-body">
-              <slot name="body">
-                <label for="date">Date: </label>
-                <input id="selected-date" type="date" :value="selectedDate" v-model="date" required>
-                <label for="start-time">Start at: </label>
-                <input class="bfh-timepicker" id="start-time" type="time" v-model="startTime" required>
-                <label for="end-time">End at: </label>
-                <input id="end-time" type="time" v-model="endTime" required>
-              </slot>
+              <label for="date">Date: </label>
+              <input type="date" :min="minDate" :max="maxDate" v-model="date" required>
+              <label for="start-time">Start at: </label>
+              <input type="time" v-model="startTime" required>
+              <label for="end-time">End at: </label>
+              <input type="time" v-model="endTime" required>
             </div>
 
             <div class="modal-footer">
-              <slot name="footer">
-                <button type="button" class="btn btn-success" type="submit">Success</button>
-              </slot>
+              <button type="button" class="btn btn-success" type="submit">Create</button>
             </div>
           </form>
         </div>
